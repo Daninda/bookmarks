@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import { IoKeyOutline, IoMailOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
+import Button from '../components/Button';
+import Input from '../components/Input';
 import { login, register } from '../store/auth/authSlice';
 
 export default function LoginPage() {
@@ -8,42 +11,47 @@ export default function LoginPage() {
 	const dispatch = useDispatch();
 
 	return (
-		<div className='flex items-center justify-center w-screen h-screen'>
+		<div className='flex justify-center w-screen h-screen pt-[20vh]'>
 			<form className='flex flex-col w-96'>
-				<h1 className='px-4 py-2 text-xl text-center text-textColor'>
-					Авторизация
-				</h1>
-				<input
-					className='px-4 py-2 mt-4 rounded shadow-md bg-surface text-textColor'
+				<p className='text-xl font-medium text-center transition-colors text-accent'>
+					Danila.bookmarks
+				</p>
+				<label className='mt-8 text-sm text-gray'>Email</label>
+				<Input
+					className='mt-2'
 					type='email'
-					aria-describedby='emailHelp'
-					placeholder='Введите email'
+					placeholder='example@some.com'
 					value={email}
-					onChange={e => setEmail(e.target.value)}
-				/>
-				<input
-					className='px-4 py-2 mt-4 rounded shadow-md bg-surface text-textColor'
+					setValue={setEmail}
+				>
+					<IoMailOutline className='text-accent' size={'20px'} />
+				</Input>
+				<label className='mt-6 text-sm text-gray'>Password</label>
+				<Input
+					className='mt-2'
 					type='password'
-					placeholder='Введите пароль'
+					placeholder='********'
 					value={password}
-					onChange={e => setPassword(e.target.value)}
-				/>
-				<button
-					className='px-4 py-2 mt-8 rounded shadow-md bg-surface text-textColor'
+					setValue={setPassword}
+				>
+					<IoKeyOutline className='text-accent' size={'20px'} />
+				</Input>
+				<Button
+					className='mt-8 font-medium'
 					onClick={() => {
 						dispatch(login({ email, password }));
 					}}
 				>
 					Войти
-				</button>
-				<button
-					className='px-4 py-2 mt-4 rounded shadow-md bg-surface text-textColor'
+				</Button>
+				<Button
+					className='mt-4'
 					onClick={() => {
 						dispatch(register({ email, password }));
 					}}
 				>
 					Зарегистрироваться
-				</button>
+				</Button>
 			</form>
 		</div>
 	);

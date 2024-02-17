@@ -29,7 +29,7 @@ export default {
 		borderRadius: {
 			none: '0',
 			sm: '.125rem',
-			DEFAULT: '.5rem',
+			DEFAULT: '.4rem',
 			full: '9999px',
 		},
 

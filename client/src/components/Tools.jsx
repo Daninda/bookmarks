@@ -18,7 +18,7 @@ export default function Tools({ filter }) {
 
 	return (
 		<div className='flex flex-col justify-between gap-4 mt-4 md:flex-row'>
-			<Search search={search} setSearch={setSearch} />
+			<Search className='md:w-80' search={search} setSearch={setSearch} />
 			<Selector option={option} options={options} setOption={setOption} />
 		</div>
 	);

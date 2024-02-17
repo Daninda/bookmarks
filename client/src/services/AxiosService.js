@@ -34,7 +34,7 @@ http.interceptors.response.use(
 				localStorage.setItem('accessToken', response.data.accessToken);
 				return http.request(originalRequest);
 			} catch (error) {
-				console.log(error);
+				return;
 			}
 		}
 		throw error;

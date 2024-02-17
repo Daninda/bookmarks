@@ -30,13 +30,5 @@ export default function Selector({ option, options, setOption }) {
 					),
 			}}
 		/>
-		// <select className='block w-full p-4 border-none rounded shadow-sm md:w-80 bg-surface placeholder:text-gray'>
-		// 	<option selected className='text-gray'>
-		// 		Выберите...
-		// 	</option>
-		// 	<option>sfgdfgaaaa</option>
-		// 	<option>saaa</option>
-		// 	<option>ssdfsgsfhfdhdh</option>
-		// </select>
 	);
 }

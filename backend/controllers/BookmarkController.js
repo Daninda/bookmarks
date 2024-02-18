@@ -43,14 +43,14 @@ class Controller {
       const { title, link, description } = req.body;
       const { user_id } = req.user;
       const bookmark_id = +req.params.bookmark_id;
-      await BookmarkService.update(
+      const result = await BookmarkService.update(
         title,
         link,
         description,
         user_id,
         bookmark_id
       );
-      return res.send().status(200);
+      return res.json(result).status(200);
     } catch (error) {
       next(error);
     }

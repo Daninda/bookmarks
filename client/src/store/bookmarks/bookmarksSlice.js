@@ -51,14 +51,7 @@ export const bookmarksSlice = createAppSlice({
       }
     ),
     update: create.asyncThunk(
-      async (data, config) => {
-        const elem = config.getState().bookmarks.find(value => {
-          value.bookmark_id === data.bookmark_id;
-        });
-        elem.title = data.title;
-        elem.link = data.link;
-        elem.description = data.description;
-
+      async data => {
         const res = await BookmarkService.update(
           data.bookmark_id,
           data.title,
@@ -71,7 +64,12 @@ export const bookmarksSlice = createAppSlice({
         pending: state => {
           state.isLoading = true;
         },
-        fulfilled: state => {
+        fulfilled: (state, action) => {
+          state.bookmarks.forEach((value, index) => {
+            if (value.bookmark_id === action.payload.bookmark_id) {
+              return (state.bookmarks[index] = action.payload);
+            }
+          });
           state.isLoading = false;
         },
         rejected: state => {
@@ -79,12 +77,6 @@ export const bookmarksSlice = createAppSlice({
         },
       }
     ),
-
-    // delete: create.reducer((state, action) => {
-    //   state.bookmarks = state.bookmarks.filter(value => {
-    //     return value.bookmark_id !== action.payload.bookmark_id;
-    //   });
-    // }),
 
     deleteOne: create.asyncThunk(
       async data => {
@@ -96,12 +88,9 @@ export const bookmarksSlice = createAppSlice({
           state.isLoading = true;
         },
         fulfilled: (state, action) => {
-          console.log(state.bookmarks);
           state.bookmarks = state.bookmarks.filter(value => {
             return value.bookmark_id != action.payload.bookmark_id;
           });
-          console.log(state.bookmarks);
-          console.log(action.payload);
           state.isLoading = false;
         },
         rejected: state => {

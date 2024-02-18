@@ -42,17 +42,16 @@ class BookmarkService {
 
   static async update(title, link, description = '', user_id, bookmark_id) {
     try {
-      return (
-        await db.query(
-          `UPDATE bookmarks SET
+      await db.query(
+        `UPDATE bookmarks SET
 						title = $1,
 						link = $2,
 						description = $3
-					WHERE user_id = $4 AND bookmark_id = $5
-					RETURNING *`,
-          [title, link, description, user_id, bookmark_id]
-        )
-      ).rows;
+					WHERE user_id = $4 AND bookmark_id = $5`,
+        [title, link, description, user_id, bookmark_id]
+      );
+      const result = await this.getOne(user_id, bookmark_id);
+      return result;
     } catch (error) {
       console.log(error);
     }

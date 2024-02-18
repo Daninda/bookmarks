@@ -1,34 +1,47 @@
+import { useLayoutEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '../components/Card';
 import Tools from '../components/Tools';
+import { deleteOne, getAll } from '../store/bookmarks/bookmarksSlice';
 
 export default function MainPage() {
-	function filter(search, option) {
-		return;
-	}
+  const dispatch = useDispatch();
 
-	return (
-		<div>
-			<Tools filter={filter} />
-			<div className='grid grid-cols-1 gap-3 my-4 md:grid-cols-2 '>
-				{[1, 2, 3, 4, 5, 6, 7, 8].map(item => {
-					return (
-						<Card
-							key={item}
-							title={'Заголовок'}
-							link={
-								'https://ru.stackoverflow.com/questions/1205450/%D0%9A%D0%B0'
-							}
-							tags={[
-								{ tag_id: 1, title: 'Первый' },
-								{ tag_id: 2, title: 'Второй' },
-								{ tag_id: 3, title: 'Третий' },
-								{ tag_id: 4, title: 'Третий' },
-							]}
-							handleEdit={() => {}}
-						/>
-					);
-				})}
-			</div>
-		</div>
-	);
+  useLayoutEffect(() => {
+    dispatch(getAll());
+  }, []);
+
+  const bookmarks = useSelector(state => state.bookmarks.bookmarks);
+
+  function filter(search, option) {
+    return;
+  }
+
+  return (
+    <div>
+      <Tools filter={filter} />
+      <div className='grid grid-cols-1 gap-3 my-4 md:grid-cols-2 '>
+        {bookmarks.map(item => {
+          return (
+            <Card
+              key={item.bookmark_id}
+              title={item.title}
+              link={item.link}
+              tags={[
+                { tag_id: 1, title: 'Первый' },
+                { tag_id: 2, title: 'Второй' },
+                { tag_id: 3, title: 'Третий' },
+                { tag_id: 4, title: 'Третий' },
+              ]}
+              handleEdit={() => {}}
+              handleDelete={() => {
+                console.log('delete');
+                dispatch(deleteOne({ bookmark_id: item.bookmark_id }));
+              }}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
 }

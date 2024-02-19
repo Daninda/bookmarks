@@ -14,7 +14,7 @@ export default function MainPage() {
 					return (
 						<Card
 							key={item}
-							title={'Заголовок'}
+							title={'Заголовок ' + item}
 							link={
 								'https://ru.stackoverflow.com/questions/1205450/%D0%9A%D0%B0'
 							}

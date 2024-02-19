@@ -42,7 +42,7 @@ export const bookmarksSlice = createAppSlice({
           state.isLoading = true;
         },
         fulfilled: (state, action) => {
-          state.bookmarks.push(action.payload);
+          state.bookmarks.unshift(action.payload);
           state.isLoading = false;
         },
         rejected: state => {

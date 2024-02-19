@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '../components/Card';
 import Tools from '../components/Tools';
@@ -7,13 +7,14 @@ import { deleteOne, getAll, update } from '../store/bookmarks/bookmarksSlice';
 export default function MainPage() {
   const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(getAll());
-  }, []);
+  });
 
   const bookmarks = useSelector(state => state.bookmarks.bookmarks);
 
   function filter(search, option) {
+    console.log(search, option);
     return;
   }
 

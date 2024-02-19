@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom';
 
 export default function Card({ title, link, tags, handleEdit, handleDelete }) {
   return (
-    <div className='flex items-center justify-between overflow-hidden transition-transform rounded shadow-md group hover:translate-x-1 bg-surface'>
+    <div className='flex items-center justify-between overflow-hidden transition-transform rounded shadow-md group hover:scale-[102%] bg-surface'>
       <a
-        className='block w-full p-4 overflow-hidden cursor-pointer'
-        href={link}
+        className='block w-full p-4 overflow-hidden outline-none cursor-pointer'
+        href={
+          link.includes('https://')
+            ? link
+            : link.includes('http://')
+            ? link
+            : 'https://' + link
+        }
+        target='_blank'
       >
         <h1 className='block overflow-hidden font-medium overflow-ellipsis'>
           {title}

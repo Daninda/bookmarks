@@ -1,7 +1,5 @@
 FROM node:alpine
 
-ENV NODE_ENV=production
-
 WORKDIR /usr/srv/app
 
 COPY package.json .

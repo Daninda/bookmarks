@@ -1,16 +1,18 @@
-FROM node:20.11.1-alpine as builder
-WORKDIR /app
+FROM node:alpine as builder
 
-COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
+ENV NODE_ENV=production
+
+WORKDIR /usr/src/app
+
+COPY package.json .
+COPY package-lock.json .
 
 RUN npm install
 
-COPY . /app
+COPY . .
 RUN npm run build
 
-FROM nginx:alpine
+FROM nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080

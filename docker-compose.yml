@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+
+  client:
+    build: ./client
+    container_name: client
+    ports:
+      - '8080:8080'
+
+  postgres:
+    image: postgres:alpine
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_DB: 'bookmarks'
+      POSTGRES_USER: 'danila'
+      POSTGRES_PASSWORD: 'danila'
+    ports:
+      - '5432:5432'

@@ -1,7 +1,5 @@
 FROM node:alpine as builder
 
-ENV NODE_ENV=production
-
 WORKDIR /usr/src/app
 
 COPY package.json .

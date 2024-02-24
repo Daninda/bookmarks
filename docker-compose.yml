@@ -1,30 +1,48 @@
 version: '3.8'
 services:
   backend:
-    build: ./backend
-    container_name: backend
+    container_name: bookmarks-backend
+    image: bookmarks-backend-prod:1.0.0
+    restart: unless-stopped
+    build:
+      context: backend
+      target: production
+      dockerfile: Dockerfile
     ports:
-      - '3000:3000'
+      - 3000:3000
+    networks:
+      - shared-network
     depends_on:
       - postgres
 
   client:
-    build: ./client
     container_name: client
+    image: bookmarks-client-prod:1.0.0
+    restart: unless-stopped
+    build:
+      context: client
+      target: production
+      dockerfile: Dockerfile
     ports:
-      - '8080:8080'
+      - 8080:8080
+    networks:
+      - shared-network
     depends_on:
       - backend
-    networks:
-      - public
 
   postgres:
-    image: postgres:alpine
-    container_name: db
+    image: postgres
     restart: always
     environment:
       POSTGRES_DB: 'bookmarks'
       POSTGRES_USER: 'danila'
       POSTGRES_PASSWORD: 'danila'
     ports:
-      - '5432:5432'
+      - 5432:5432
+    networks:
+      - shared-network
+    volumes:
+      - ./postgres-db:/var/lib/postgresql/data
+
+networks:
+  shared-network:

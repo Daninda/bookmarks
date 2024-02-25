@@ -15,7 +15,7 @@ services:
       - postgres
 
   client:
-    container_name: client
+    container_name: bookmarks-client
     image: bookmarks-client-prod:1.0.0
     restart: unless-stopped
     build:
@@ -31,16 +31,20 @@ services:
   postgres:
     image: postgres
     restart: always
+    env_file: ./backend/.env
     environment:
-      POSTGRES_DB: 'bookmarks'
-      POSTGRES_USER: 'danila'
-      POSTGRES_PASSWORD: 'danila'
+      - POSTGRES_DB=$DB_DATABASE
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_PASSWORD
     ports:
       - 5432:5432
     networks:
       - shared-network
     volumes:
-      - ./postgres-db:/var/lib/postgresql/data
+      - db:/var/lib/postgres
 
 networks:
   shared-network:
+
+volumes:
+  db:

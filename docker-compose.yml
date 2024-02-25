@@ -3,7 +3,6 @@ services:
   backend:
     container_name: bookmarks-backend
     image: bookmarks-backend-prod:1.0.0
-    restart: unless-stopped
     build:
       context: backend
       dockerfile: Dockerfile
@@ -14,25 +13,23 @@ services:
     depends_on:
       - postgres
 
-  client:
-    container_name: bookmarks-client
-    image: bookmarks-client-prod:1.0.0
-    restart: unless-stopped
-    build:
-      context: client
-      dockerfile: Dockerfile
-    ports:
-      - 8080:8080
-    networks:
-      - shared-network
-    depends_on:
-      - backend
+  # client:
+  #   container_name: bookmarks-client
+  #   image: bookmarks-client-prod:1.0.0
+  #   restart: unless-stopped
+  #   build:
+  #     context: client
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - shared-network
+  #   depends_on:
+  #     - backend
 
   postgres:
     image: postgres:15
-    restart: always
     environment:
-      - POSTGRES_HOST=127.0.0.1
       - POSTGRES_DB=bookmarks
       - POSTGRES_USER=danila
       - POSTGRES_PASSWORD=danila

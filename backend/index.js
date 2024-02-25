@@ -10,7 +10,7 @@ import BookmarkRouter from './routes/BookmarkRouter.js';
 
 dotenv.config();
 
-const PORT = process.env.SERVER_PORT || 5000;
+const PORT = process.env.BACKEND_DOCKER_PORT || 5000;
 const app = new express();
 
 app.use(express.json());
@@ -23,5 +23,5 @@ app.use('/api/bookmarks', AuthMiddleware, BookmarkRouter);
 app.use(ErrorMiddleware);
 
 app.listen(PORT, () => {
-	console.log('Server on', PORT);
+  console.log('Server on', PORT);
 });

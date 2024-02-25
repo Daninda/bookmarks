@@ -9,6 +9,7 @@ export default function CreateCard() {
   const [isShow, setIsShow] = useState(false);
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
+  const [tagsString, setTagsString] = useState('');
   const dispatch = useDispatch();
 
   return (
@@ -46,7 +47,7 @@ export default function CreateCard() {
             <Input
               autoFocus={true}
               type='text'
-              placeholder='Moodle'
+              placeholder='React'
               className='mt-2 mb-4'
               value={title}
               setValue={setTitle}
@@ -54,18 +55,35 @@ export default function CreateCard() {
             <label className='mt-6 text-sm text-gray'>Ссылка</label>
             <Input
               type='url'
-              placeholder='https://do.ssau.ru/moodle/'
-              className='mt-2 mb-8'
+              placeholder='https://react.dev'
+              className='mt-2 mb-4'
               value={link}
               setValue={setLink}
             />
+
+            <label className='mt-6 text-sm text-gray'>Тэги</label>
+            <Input
+              type='text'
+              placeholder='Development React'
+              className='mt-2 mb-8'
+              value={tagsString}
+              setValue={setTagsString}
+            />
+
             <Button
               onClick={e => {
                 e.preventDefault();
-                if (title != 0 && link != 0) dispatch(create({ title, link }));
+                const tags = (tagsString.split(/[ .,;]/) || [])
+                  .filter(x => x != '')
+                  .map(value => {
+                    return { title: value };
+                  });
+                if (title != 0 && link != 0)
+                  dispatch(create({ title, link, tags }));
                 setIsShow(false);
                 setTitle('');
                 setLink('');
+                setTagsString('');
               }}
               className='w-full'
             >

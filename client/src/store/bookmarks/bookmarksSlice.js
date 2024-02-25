@@ -5,6 +5,7 @@ export const bookmarksSlice = createAppSlice({
   name: 'bookmarks',
   initialState: {
     bookmarks: [],
+    tags: [],
     isLoading: false,
   },
 
@@ -28,13 +29,34 @@ export const bookmarksSlice = createAppSlice({
       }
     ),
 
+    getAllTags: create.asyncThunk(
+      async () => {
+        const res = await BookmarkService.getAllTags();
+        return res.data;
+      },
+      {
+        pending: state => {
+          state.isLoading = true;
+        },
+        fulfilled: (state, action) => {
+          state.tags = action.payload;
+          state.isLoading = false;
+        },
+        rejected: state => {
+          state.isLoading = false;
+        },
+      }
+    ),
+
     create: create.asyncThunk(
-      async data => {
+      async (data, config) => {
         const res = await BookmarkService.create(
           data.title,
           data.link,
-          data.description
+          data.description,
+          data.tags
         );
+        config.dispatch(getAllTags());
         return res.data;
       },
       {
@@ -51,13 +73,15 @@ export const bookmarksSlice = createAppSlice({
       }
     ),
     update: create.asyncThunk(
-      async data => {
+      async (data, config) => {
         const res = await BookmarkService.update(
           data.bookmark_id,
           data.title,
           data.link,
-          data.description
+          data.description,
+          data.tags
         );
+        config.dispatch(getAllTags());
         return res.data;
       },
       {
@@ -80,8 +104,9 @@ export const bookmarksSlice = createAppSlice({
     ),
 
     deleteOne: create.asyncThunk(
-      async data => {
+      async (data, config) => {
         const res = await BookmarkService.delete(data.bookmark_id);
+        config.dispatch(getAllTags());
         return res.data;
       },
       {
@@ -102,6 +127,7 @@ export const bookmarksSlice = createAppSlice({
   }),
 });
 
-export const { getAll, create, update, deleteOne } = bookmarksSlice.actions;
+export const { getAll, getAllTags, create, update, deleteOne } =
+  bookmarksSlice.actions;
 
 export default bookmarksSlice.reducer;

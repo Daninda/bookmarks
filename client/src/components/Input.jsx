@@ -17,7 +17,7 @@ export default function Input({
           type={type}
           value={value}
           onChange={e => setValue(e.target.value)}
-          className='block w-full outline-none bg-surface placeholder:text-gray'
+          className='block w-full outline-none bg-surface placeholder:text-gray placeholder:italic'
         />
       </div>
     </div>

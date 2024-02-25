@@ -17,21 +17,28 @@ export default function MainPage() {
 
   useEffect(() => {
     setSortedBookmarks(bookmarks);
-    console.log(bookmarks);
   }, [bookmarks]);
 
   function filter(search, option) {
-    setSortedBookmarks(
-      bookmarks.filter(value => {
-        if (search != 0) {
-          return (
-            value.title.toLowerCase().includes(search.toLowerCase()) ||
-            value.link.toLowerCase().includes(search.toLowerCase())
-          );
-        } else return true;
-      })
-    );
-    return;
+    let bookmarksList = bookmarks;
+    if (search) {
+      bookmarksList = bookmarksList.filter(value => {
+        return (
+          value.title.toLowerCase().includes(search.toLowerCase()) ||
+          value.link.toLowerCase().includes(search.toLowerCase())
+        );
+      });
+    }
+
+    if (option) {
+      bookmarksList = bookmarksList.filter(value => {
+        return value.tags.find(value => {
+          return value.tag_id == option.value;
+        });
+      });
+    }
+
+    setSortedBookmarks(bookmarksList);
   }
 
   return (
@@ -48,12 +55,7 @@ export default function MainPage() {
                 title={item.title}
                 link={item.link}
                 create_at={item.create_at}
-                tags={[
-                  { tag_id: 1, title: 'Первый' },
-                  { tag_id: 2, title: 'Второй' },
-                  { tag_id: 3, title: 'Третий' },
-                  { tag_id: 4, title: 'Третий' },
-                ]}
+                tags={item.tags}
                 handleEdit={() => {
                   dispatch(
                     update({

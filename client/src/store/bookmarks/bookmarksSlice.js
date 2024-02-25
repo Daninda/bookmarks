@@ -67,7 +67,8 @@ export const bookmarksSlice = createAppSlice({
         fulfilled: (state, action) => {
           state.bookmarks.forEach((value, index) => {
             if (value.bookmark_id === action.payload.bookmark_id) {
-              return (state.bookmarks[index] = action.payload);
+              state.bookmarks[index].title = action.payload.title;
+              state.bookmarks[index].link = action.payload.link;
             }
           });
           state.isLoading = false;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IoKeyOutline, IoMailOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import Button from '../components/Button';
@@ -9,6 +9,11 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <div className='flex justify-center w-screen h-screen pt-[20vh]'>
@@ -18,7 +23,7 @@ export default function LoginPage() {
         </p>
         <label className='mt-8 text-sm text-gray'>Email</label>
         <Input
-          autoFocus={true}
+          inputRef={inputRef}
           className='mt-2'
           type='email'
           placeholder='example@some.com'

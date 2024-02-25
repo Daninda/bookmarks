@@ -4,10 +4,7 @@ class BookmarkService {
   static async getAll(user_id) {
     try {
       return (
-        await db.query(
-          'SELECT * FROM bookmarks WHERE user_id = $1 ORDER BY create_at DESC',
-          [user_id]
-        )
+        await db.query('SELECT * FROM bookmarks WHERE user_id = $1', [user_id])
       ).rows;
     } catch (error) {
       console.log(error);
@@ -29,7 +26,8 @@ class BookmarkService {
 
   static async create(title, link, description = '', user_id) {
     try {
-      const create_at = new Date().getTime();
+      const create_at = new Date();
+      console.log(create_at);
       return (
         await db.query(
           `INSERT INTO bookmarks (title, link, description, create_at, user_id)

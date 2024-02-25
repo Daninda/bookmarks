@@ -1,29 +1,9 @@
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-export default function Card({
-  title,
-  link,
-  create_at,
-  tags,
-  handleEdit,
-  handleDelete,
-}) {
-  const date =
-    new Date(+create_at).toLocaleDateString() ===
-    new Date().toLocaleDateString()
-      ? new Date(+create_at).toLocaleTimeString('ru', {
-          hour: 'numeric',
-          minute: 'numeric',
-        })
-      : new Date(+create_at).toLocaleString('ru', {
-          day: 'numeric',
-          month: 'numeric',
-          year: 'numeric',
-        });
-
+export default function Card({ title, link, tags, handleEdit, handleDelete }) {
   return (
-    <div className='flex items-center justify-between overflow-hidden transition-transform rounded shadow-md group hover:scale-[101%] bg-surface'>
+    <div className='flex items-center justify-between overflow-hidden transition-transform rounded shadow-md group hover:scale-[102%] bg-surface'>
       <a
         className='block w-full p-4 overflow-hidden outline-none cursor-pointer'
         href={
@@ -36,7 +16,7 @@ export default function Card({
         target='_blank'
       >
         <h1 className='block overflow-hidden font-medium overflow-ellipsis'>
-          {title + ' ' + date}
+          {title}
         </h1>
         <p className='block py-2 overflow-hidden text-xs text-textGray overflow-ellipsis whitespace-nowrap'>
           {link}

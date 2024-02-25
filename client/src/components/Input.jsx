@@ -5,14 +5,14 @@ export default function Input({
   placeholder,
   children,
   className,
-  autoFocus,
+  inputRef,
 }) {
   return (
     <div className={className}>
-      <div className='flex items-center w-full h-12 gap-4 px-4 rounded shadow-md bg-surface focus:outline-accent focus:outline-1'>
+      <div className='flex items-center w-full gap-4 px-4 rounded shadow-md h-14 bg-surface focus:outline-accent focus:outline-1'>
         {children}
         <input
-          autoFocus={autoFocus}
+          ref={inputRef}
           placeholder={placeholder}
           type={type}
           value={value}

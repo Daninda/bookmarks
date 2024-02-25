@@ -22,7 +22,7 @@ class BookmarkService {
     try {
       const result = (
         await db.query(
-          `SELECT tags.tag_id, tags.title FROM tags
+          `SELECT DISTINCT tags.tag_id, tags.title FROM tags
           JOIN bookmarks_tags USING (tag_id)
           JOIN bookmarks USING (bookmark_id)
           WHERE user_id = $1`,
@@ -53,7 +53,6 @@ class BookmarkService {
   static async create(title, link, description = '', tags, user_id) {
     try {
       const create_at = new Date().getTime();
-      console.log(create_at);
       const result = (
         await db.query(
           `INSERT INTO bookmarks (title, link, description, create_at, user_id)

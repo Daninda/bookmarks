@@ -30,6 +30,7 @@ services:
   postgres:
     image: postgres:15
     environment:
+      - POSTGRES_HOST=localhost
       - POSTGRES_DB=bookmarks
       - POSTGRES_USER=danila
       - POSTGRES_PASSWORD=danila

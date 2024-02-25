@@ -18,6 +18,23 @@ class BookmarkService {
     }
   }
 
+  static async getAllUserTags(user_id) {
+    try {
+      const result = (
+        await db.query(
+          `SELECT tags.tag_id, tags.title FROM tags
+          JOIN bookmarks_tags USING (tag_id)
+          JOIN bookmarks USING (bookmark_id)
+          WHERE user_id = $1`,
+          [user_id]
+        )
+      ).rows;
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   static async getOne(user_id, bookmark_id) {
     try {
       const result = (

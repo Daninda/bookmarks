@@ -11,6 +11,16 @@ class Controller {
     }
   }
 
+  async getAllUserTags(req, res, next) {
+    try {
+      const { user_id } = req.user;
+      const result = await BookmarkService.getAllUserTags(user_id);
+      return res.json(result).status(200);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getOne(req, res, next) {
     try {
       const { user_id } = req.user;

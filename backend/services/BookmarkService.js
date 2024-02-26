@@ -25,7 +25,8 @@ class BookmarkService {
           `SELECT DISTINCT tags.tag_id, tags.title FROM tags
           JOIN bookmarks_tags USING (tag_id)
           JOIN bookmarks USING (bookmark_id)
-          WHERE user_id = $1`,
+          WHERE user_id = $1
+          ORDER BY tags.title`,
           [user_id]
         )
       ).rows;

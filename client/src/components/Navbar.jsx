@@ -11,7 +11,7 @@ export default function Navbar() {
       <div className='container flex items-center justify-between h-20'>
         <ul className='flex gap-6'>
           <Link className='text-xl font-medium transition-colors text-accent hover:text-textColor'>
-            Danila.bookmarks
+            Simple.bookmarks
           </Link>
         </ul>
         <Link

@@ -17,7 +17,7 @@ export default function LoginPage() {
     <div className='flex justify-center w-screen h-screen pt-[20vh]'>
       <form className='flex flex-col w-96'>
         <p className='text-xl font-medium text-center transition-colors text-accent'>
-          Danila.bookmarks
+          Simple.bookmarks
         </p>
 
         {isEmailError ? (

@@ -41,29 +41,33 @@ export default function Card({
         <p className='block py-2 overflow-hidden text-xs text-textGray overflow-ellipsis whitespace-nowrap'>
           {link}
         </p>
-        <div className='flex flex-wrap gap-2 mt-4'>
-          {tags.map(item => {
-            return (
-              <p
-                key={item.tag_id}
-                className='block px-2 py-1 text-xs transition-colors cursor-pointer text-accent '
-              >
-                {item.title}
-              </p>
-            );
-          })}
-        </div>
+        {!tags.length ? (
+          <></>
+        ) : (
+          <div className='flex flex-wrap gap-2 mt-2'>
+            {tags.map(item => {
+              return (
+                <p
+                  key={item.tag_id}
+                  className='block px-1 py-1 text-xs transition-colors cursor-pointer text-accent '
+                >
+                  {item.title}
+                </p>
+              );
+            })}
+          </div>
+        )}
       </a>
       <div className='flex flex-col h-full'>
         <Link
           onClick={handleEdit}
-          className='flex items-center justify-center h-full px-4 transition-colors opacity-0 text-accent hover:bg-accent hover:text-surface group-hover:opacity-100 '
+          className='flex items-center justify-center h-full px-4 transition-colors rounded opacity-0 text-accent hover:bg-accent hover:text-surface group-hover:opacity-100 '
         >
           <FiEdit className='w-full' size={'20px'} />
         </Link>
         <Link
           onClick={handleDelete}
-          className='flex items-center justify-center h-full px-4 transition-colors opacity-0 text-accent hover:bg-accent hover:text-surface group-hover:opacity-100 '
+          className='flex items-center justify-center h-full px-4 transition-colors rounded opacity-0 text-accent hover:bg-accent hover:text-surface group-hover:opacity-100 '
         >
           <FiTrash className='w-full' size={'20px'} />
         </Link>

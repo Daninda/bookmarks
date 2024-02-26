@@ -20,7 +20,6 @@ export default function Tools({ filter }) {
   });
 
   useEffect(() => {
-    console.log(search, option);
     filter(search, option);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, option]);

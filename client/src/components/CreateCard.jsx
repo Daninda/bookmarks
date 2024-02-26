@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { IoAdd } from 'react-icons/io5';
+import { FiAlertCircle, FiCheckCircle, FiPlus } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { create } from '../store/bookmarks/bookmarksSlice';
 import Button from './Button';
 import Input from './Input';
@@ -20,8 +22,8 @@ export default function CreateCard() {
         }}
         className='flex items-center gap-2 mt-4'
       >
-        <IoAdd className='text-accent' size={'20px'} />
-        Создать
+        <FiPlus size={'20px'} />
+        <span>Создать</span>
       </Button>
       {!isShow ? (
         ''
@@ -64,7 +66,7 @@ export default function CreateCard() {
             <label className='mt-6 text-sm text-gray'>Тэги</label>
             <Input
               type='text'
-              placeholder='Development React'
+              placeholder='Development, React'
               className='mt-2 mb-8'
               value={tagsString}
               setValue={setTagsString}
@@ -78,12 +80,24 @@ export default function CreateCard() {
                   .map(value => {
                     return { title: value };
                   });
-                if (title != 0 && link != 0)
+                if (title != 0 && link != 0) {
                   dispatch(create({ title, link, tags }));
-                setIsShow(false);
-                setTitle('');
-                setLink('');
-                setTagsString('');
+                  toast('Успешно добавлено', {
+                    icon: (
+                      <FiCheckCircle className='text-accent' size={'24px'} />
+                    ),
+                  });
+                  setIsShow(false);
+                  setTitle('');
+                  setLink('');
+                  setTagsString('');
+                } else {
+                  toast('Заполните поля', {
+                    icon: (
+                      <FiAlertCircle className='text-accent' size={'24px'} />
+                    ),
+                  });
+                }
               }}
               className='w-full'
             >

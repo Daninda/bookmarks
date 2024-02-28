@@ -27,7 +27,7 @@ export default {
       gray: '#A7AEB4',
       grayLight: '#ECEDEE',
 
-      error: '#FF3333',
+      error: 'rgb(255, 87, 87)',
     },
 
     borderRadius: {

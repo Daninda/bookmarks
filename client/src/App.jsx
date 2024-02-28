@@ -5,62 +5,62 @@ import Layout from './components/Layouts/Layout';
 import PageLoader from './pages/PageLoader';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
-import { checkAuth } from './store/auth/authSlice';
+import { checkAuth } from './store/slices/authSlice';
 
 function App() {
-	const dispatch = useDispatch();
-	const isAuth = useSelector(state => state.auth.isAuth);
-	const isAuthLoading = useSelector(state => state.auth.isAuthLoading);
+  const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.auth.isAuth);
+  const checkAuthLoading = useSelector(state => state.auth.checkAuthLoading);
 
-	useEffect(() => {
-		dispatch(checkAuth());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+  useEffect(() => {
+    dispatch(checkAuth());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-	if (isAuthLoading) {
-		return <PageLoader />;
-	} else {
-		return (
-			<>
-				{isAuth ? (
-					<>
-						<Routes>
-							<Route element={<Layout />}>
-								{PrivateRoute.map(value => {
-									return (
-										<Route
-											key={value.path}
-											path={value.path}
-											Component={value.component}
-										/>
-									);
-								})}
-							</Route>
-							<Route path='*' element={<Navigate to='/' replace={true} />} />
-						</Routes>
-					</>
-				) : (
-					<>
-						<Routes>
-							{PublicRoute.map(value => {
-								return (
-									<Route
-										key={value.path}
-										path={value.path}
-										Component={value.component}
-									/>
-								);
-							})}
-							<Route
-								path='*'
-								element={<Navigate to='/login' replace={true} />}
-							/>
-						</Routes>
-					</>
-				)}
-			</>
-		);
-	}
+  if (checkAuthLoading) {
+    return <PageLoader />;
+  } else {
+    return (
+      <>
+        {isAuth ? (
+          <>
+            <Routes>
+              <Route element={<Layout />}>
+                {PrivateRoute.map(value => {
+                  return (
+                    <Route
+                      key={value.path}
+                      path={value.path}
+                      Component={value.component}
+                    />
+                  );
+                })}
+              </Route>
+              <Route path='*' element={<Navigate to='/' replace={true} />} />
+            </Routes>
+          </>
+        ) : (
+          <>
+            <Routes>
+              {PublicRoute.map(value => {
+                return (
+                  <Route
+                    key={value.path}
+                    path={value.path}
+                    Component={value.component}
+                  />
+                );
+              })}
+              <Route
+                path='*'
+                element={<Navigate to='/login' replace={true} />}
+              />
+            </Routes>
+          </>
+        )}
+      </>
+    );
+  }
 }
 
 export default App;

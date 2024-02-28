@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { Slide, ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Card from '../components/Card';
 import Tools from '../components/Tools';
-import { deleteOne, getAll, update } from '../store/bookmarks/bookmarksSlice';
+import { deleteOne, getAll, update } from '../store/slices/bookmarksSlice';
 
 export default function MainPage() {
   const dispatch = useDispatch();
@@ -45,20 +45,6 @@ export default function MainPage() {
 
   return (
     <div>
-      <ToastContainer
-        bodyClassName={'text-base text-textColor'}
-        toastClassName={' rounded bg-surface'}
-        position='bottom-center'
-        autoClose={2000}
-        stacked
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover={false}
-        transition={Slide}
-      />
       <Tools filter={filter} />
       {sortedBookmarks == 0 ? (
         <p className='mt-8 text-center text-gray'>Здесь пусто...</p>

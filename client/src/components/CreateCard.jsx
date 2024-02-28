@@ -3,7 +3,7 @@ import { FiAlertCircle, FiCheckCircle, FiPlus } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { create } from '../store/bookmarks/bookmarksSlice';
+import { create } from '../store/slices/bookmarksSlice';
 import Button from './Button';
 import Input from './Input';
 
@@ -73,8 +73,7 @@ export default function CreateCard() {
             />
 
             <Button
-              onClick={e => {
-                e.preventDefault();
+              onClick={() => {
                 const tags = (tagsString.split(/[ .,;]/) || [])
                   .filter(x => x != '')
                   .map(value => {

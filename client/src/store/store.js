@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './auth/authSlice';
-import bookmarksSlice from './bookmarks/bookmarksSlice';
+import authReducer from './slices/authSlice';
+import bookmarksSlice from './slices/bookmarksSlice';
 
 export default configureStore({
-	reducer: {
-		auth: authReducer,
-		bookmarks: bookmarksSlice,
-	},
+  reducer: {
+    auth: authReducer,
+    bookmarks: bookmarksSlice,
+  },
 });

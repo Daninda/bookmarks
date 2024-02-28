@@ -1,7 +1,7 @@
 import { IoLogOutOutline } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../store/auth/authSlice';
+import { logout } from '../store/slices/authSlice';
 
 export default function Navbar() {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllTags } from '../store/bookmarks/bookmarksSlice';
+import { getAllTags } from '../store/slices/bookmarksSlice';
 import CreateCard from './CreateCard';
 import Search from './Search';
 import Selector from './Selector';

@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { FiAlertCircle } from 'react-icons/fi';
 import { IoKeyOutline, IoMailOutline } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import validator from 'validator';
 import Button from '../components/Button';
 import Input from '../components/Input';
-import { login, register } from '../store/auth/authSlice';
+import { login, register, setError } from '../store/slices/authSlice';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -12,7 +14,14 @@ export default function LoginPage() {
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
   const dispatch = useDispatch();
+  const errorMessage = useSelector(state => state.auth.errorMessage);
 
+  if (errorMessage) {
+    toast(errorMessage, {
+      icon: <FiAlertCircle className='text-accent' size={'24px'} />,
+    });
+    dispatch(setError(false));
+  }
   return (
     <div className='flex justify-center w-screen h-screen pt-[20vh]'>
       <form className='flex flex-col w-96'>
@@ -27,7 +36,7 @@ export default function LoginPage() {
         )}
         <Input
           autoFocus={true}
-          className='mt-2'
+          className={'mt-2 ' + (isEmailError ? 'ring-1 ring-error' : '')}
           type='email'
           placeholder='example@some.com'
           value={email}
@@ -47,9 +56,9 @@ export default function LoginPage() {
           <label className='mt-8 text-sm text-gray'>Пароль</label>
         )}
         <Input
-          className='mt-2'
+          className={'mt-2 ' + (isPasswordError ? 'ring-1 ring-error' : '')}
           type='password'
-          placeholder='********'
+          placeholder='password'
           value={password}
           setValue={value => {
             setIsPasswordError(false);
@@ -60,8 +69,7 @@ export default function LoginPage() {
         </Input>
         <Button
           className='mt-8 font-medium'
-          onClick={e => {
-            e.preventDefault();
+          onClick={() => {
             if (!validator.isEmail(email)) {
               setIsEmailError(true);
               return;
@@ -77,8 +85,7 @@ export default function LoginPage() {
         </Button>
         <Button
           className='mt-4'
-          onClick={e => {
-            e.preventDefault();
+          onClick={() => {
             if (!validator.isEmail(email)) {
               setIsEmailError(true);
               return;

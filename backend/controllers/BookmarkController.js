@@ -11,6 +11,16 @@ class Controller {
     }
   }
 
+  async getAllUserTags(req, res, next) {
+    try {
+      const { user_id } = req.user;
+      const result = await BookmarkService.getAllUserTags(user_id);
+      return res.json(result).status(200);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getOne(req, res, next) {
     try {
       const { user_id } = req.user;
@@ -24,12 +34,13 @@ class Controller {
 
   async create(req, res, next) {
     try {
-      const { title, link, description } = req.body;
+      const { title, link, description, tags } = req.body;
       const { user_id } = req.user;
       const result = await BookmarkService.create(
         title,
         link,
         description,
+        tags,
         user_id
       );
       return res.json(result).status(200);
@@ -40,13 +51,14 @@ class Controller {
 
   async update(req, res, next) {
     try {
-      const { title, link, description } = req.body;
+      const { title, link, description, tags } = req.body;
       const { user_id } = req.user;
       const bookmark_id = +req.params.bookmark_id;
       const result = await BookmarkService.update(
         title,
         link,
         description,
+        tags,
         user_id,
         bookmark_id
       );

@@ -15,7 +15,7 @@ const app = new express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(cors({ credentials: true, origin: 'http://localhost:5001' }));
 
 app.use('/api/auth', AuthRouter);
 app.use('/api/bookmarks', AuthMiddleware, BookmarkRouter);

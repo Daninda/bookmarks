@@ -5,15 +5,15 @@
 @import 'tailwindcss/utilities';
 
 @layer base {
-	body {
-		font-family: 'Poppins', sans-serif;
-		@apply text-textColor;
-		@apply bg-background;
-	}
+  body {
+    font-family: 'Poppins', sans-serif;
+    @apply text-textColor;
+    @apply bg-background;
+  }
 }
 
 @layer components {
-	.container {
-		@apply max-w-[1200px];
-	}
+  .container {
+    @apply max-w-[1400px];
+  }
 }

@@ -1,7 +1,10 @@
-import { useState } from 'react';
-import { IoAdd } from 'react-icons/io5';
+import { useRef, useState } from 'react';
+import { FiAlertCircle, FiCheckCircle, FiPlus } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
-import { create } from '../store/bookmarks/bookmarksSlice';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useClickOutside from '../hooks/useClickOutside';
+import { create } from '../store/slices/bookmarksSlice';
 import Button from './Button';
 import Input from './Input';
 
@@ -9,7 +12,16 @@ export default function CreateCard() {
   const [isShow, setIsShow] = useState(false);
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
+  const [tagsString, setTagsString] = useState('');
   const dispatch = useDispatch();
+  const editCardRef = useRef(null);
+
+  useClickOutside(editCardRef, () => {
+    setIsShow(false);
+    setTitle('');
+    setLink('');
+    setTagsString('');
+  });
 
   return (
     <>
@@ -17,63 +29,76 @@ export default function CreateCard() {
         onClick={() => {
           setIsShow(true);
         }}
-        className='flex items-center gap-2 mt-4'
+        className='flex items-center gap-2 mt-4 focus:outline-none'
       >
-        <IoAdd className='text-accent' size={'20px'} />
-        Создать
+        <FiPlus size={'20px'} />
+        <span>Создать</span>
       </Button>
-      {!isShow ? (
-        ''
-      ) : (
-        <div
-          className='fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full px-4 bg-darkTransition'
-          onKeyDown={e => {
-            if (e.key === 'Escape') {
-              return setIsShow(false);
-            }
-          }}
+
+      <div
+        className={
+          'fixed overflow-hidden top-0 left-0 z-10 flex items-center justify-center w-full h-full px-4 transition-all bg-darkTransition ' +
+          (isShow ? 'opacity-100 visible' : 'opacity-0 invisible')
+        }
+      >
+        <form
+          className='relative z-20 p-8 rounded shadow-md md:w-[500px] bg-background'
+          ref={editCardRef}
         >
-          <div
-            className='fixed top-0 left-0 w-full h-full'
+          <label className='mt-6 text-sm text-gray'>Название</label>
+          <Input
+            type='text'
+            placeholder='React'
+            className='mt-2 mb-4'
+            value={title}
+            setValue={setTitle}
+          />
+          <label className='mt-6 text-sm text-gray'>Ссылка</label>
+          <Input
+            type='url'
+            placeholder='https://react.dev'
+            className='mt-2 mb-4'
+            value={link}
+            setValue={setLink}
+          />
+
+          <label className='mt-6 text-sm text-gray'>Тэги</label>
+          <Input
+            type='text'
+            placeholder='Development, React'
+            className='mt-2 mb-8'
+            value={tagsString}
+            setValue={setTagsString}
+          />
+
+          <Button
             onClick={() => {
-              setIsShow(false);
-              setTitle('');
-              setLink('');
-            }}
-          ></div>
-          <form className='relative z-20 p-8 rounded shadow-md md:w-[500px] bg-background'>
-            <label className='mt-6 text-sm text-gray'>Название</label>
-            <Input
-              autoFocus={true}
-              type='text'
-              placeholder='Moodle'
-              className='mt-2 mb-4'
-              value={title}
-              setValue={setTitle}
-            />
-            <label className='mt-6 text-sm text-gray'>Ссылка</label>
-            <Input
-              type='url'
-              placeholder='https://do.ssau.ru/moodle/'
-              className='mt-2 mb-8'
-              value={link}
-              setValue={setLink}
-            />
-            <Button
-              onClick={e => {
-                e.preventDefault();
-                if (title != 0 && link != 0) dispatch(create({ title, link }));
+              const tags = (tagsString.split(/[ .,;]/) || [])
+                .filter(x => x != '')
+                .map(value => {
+                  return { title: value };
+                });
+              if (title != 0 && link != 0) {
+                dispatch(create({ title, link, tags }));
+                toast('Успешно добавлено', {
+                  icon: <FiCheckCircle className='text-accent' size={'24px'} />,
+                });
                 setIsShow(false);
                 setTitle('');
                 setLink('');
-              }}
-              className='w-full'
-            >
-              Подтвердить
-            </Button>
-          </form>
-        </div>
-      )}
+                setTagsString('');
+              } else {
+                toast('Заполните поля', {
+                  icon: <FiAlertCircle className='text-accent' size={'24px'} />,
+                });
+              }
+            }}
+            className='w-full'
+          >
+            Подтвердить
+          </Button>
+        </form>
+      </div>
     </>
   );
 }

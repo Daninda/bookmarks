@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { FiTrash } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import Card from '../components/Card';
 import Tools from '../components/Tools';
-import { deleteOne, getAll, update } from '../store/bookmarks/bookmarksSlice';
+import { deleteOne, getAll, update } from '../store/slices/bookmarksSlice';
 
 export default function MainPage() {
   const dispatch = useDispatch();
@@ -17,21 +19,28 @@ export default function MainPage() {
 
   useEffect(() => {
     setSortedBookmarks(bookmarks);
-    console.log(bookmarks);
   }, [bookmarks]);
 
   function filter(search, option) {
-    setSortedBookmarks(
-      bookmarks.filter(value => {
-        if (search != 0) {
-          return (
-            value.title.toLowerCase().includes(search.toLowerCase()) ||
-            value.link.toLowerCase().includes(search.toLowerCase())
-          );
-        } else return true;
-      })
-    );
-    return;
+    let bookmarksList = bookmarks;
+    if (search) {
+      bookmarksList = bookmarksList.filter(value => {
+        return (
+          value.title.toLowerCase().includes(search.toLowerCase()) ||
+          value.link.toLowerCase().includes(search.toLowerCase())
+        );
+      });
+    }
+
+    if (option) {
+      bookmarksList = bookmarksList.filter(value => {
+        return value.tags.find(value => {
+          return value.tag_id == option.value;
+        });
+      });
+    }
+
+    setSortedBookmarks(bookmarksList);
   }
 
   return (
@@ -40,20 +49,16 @@ export default function MainPage() {
       {sortedBookmarks == 0 ? (
         <p className='mt-8 text-center text-gray'>Здесь пусто...</p>
       ) : (
-        <div className='grid grid-cols-1 gap-3 my-4 md:grid-cols-2 '>
+        <div className='grid grid-cols-1 gap-3 my-4 md:grid-cols-2 lg:grid-cols-3 '>
           {sortedBookmarks.map(item => {
             return (
               <Card
                 key={item.bookmark_id}
+                bookmark_id={item.bookmark_id}
                 title={item.title}
                 link={item.link}
                 create_at={item.create_at}
-                tags={[
-                  { tag_id: 1, title: 'Первый' },
-                  { tag_id: 2, title: 'Второй' },
-                  { tag_id: 3, title: 'Третий' },
-                  { tag_id: 4, title: 'Третий' },
-                ]}
+                tags={item.tags}
                 handleEdit={() => {
                   dispatch(
                     update({
@@ -66,6 +71,9 @@ export default function MainPage() {
                 }}
                 handleDelete={() => {
                   dispatch(deleteOne({ bookmark_id: item.bookmark_id }));
+                  toast('Успешно удалено', {
+                    icon: <FiTrash className=' text-accent' size={'24px'} />,
+                  });
                 }}
               />
             );

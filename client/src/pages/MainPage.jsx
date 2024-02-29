@@ -49,11 +49,12 @@ export default function MainPage() {
       {sortedBookmarks == 0 ? (
         <p className='mt-8 text-center text-gray'>Здесь пусто...</p>
       ) : (
-        <div className='grid grid-cols-1 gap-3 my-4 md:grid-cols-2 '>
+        <div className='grid grid-cols-1 gap-3 my-4 md:grid-cols-2 lg:grid-cols-3 '>
           {sortedBookmarks.map(item => {
             return (
               <Card
                 key={item.bookmark_id}
+                bookmark_id={item.bookmark_id}
                 title={item.title}
                 link={item.link}
                 create_at={item.create_at}

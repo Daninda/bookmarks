@@ -1,4 +1,5 @@
 export default function Input({
+  inputRef,
   value,
   setValue,
   type,
@@ -16,6 +17,7 @@ export default function Input({
     >
       {children}
       <input
+        ref={inputRef}
         autoFocus={autoFocus}
         placeholder={placeholder}
         type={type}

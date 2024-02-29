@@ -81,6 +81,7 @@ export const bookmarksSlice = createAppSlice({
           data.description,
           data.tags
         );
+        config.dispatch(getAll());
         config.dispatch(getAllTags());
         return res.data;
       },
@@ -88,13 +89,7 @@ export const bookmarksSlice = createAppSlice({
         pending: state => {
           state.isLoading = true;
         },
-        fulfilled: (state, action) => {
-          state.bookmarks.forEach((value, index) => {
-            if (value.bookmark_id === action.payload.bookmark_id) {
-              state.bookmarks[index].title = action.payload.title;
-              state.bookmarks[index].link = action.payload.link;
-            }
-          });
+        fulfilled: state => {
           state.isLoading = false;
         },
         rejected: state => {

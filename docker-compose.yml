@@ -13,6 +13,8 @@ services:
       - 5432
     volumes:
       - postgres:/var/lib/postgresql/data
+    networks:
+      - bookmarks_network
 
   backend:
     depends_on:
@@ -26,6 +28,8 @@ services:
       - DB_HOST=db
     stdin_open: true
     tty: true
+    networks:
+      - bookmarks_network
 
   client:
     depends_on:
@@ -34,6 +38,8 @@ services:
     restart: unless-stopped
     expose:
       - 5001
+    networks:
+      - bookmarks_network
 
   nginx:
     depends_on:
@@ -43,6 +49,12 @@ services:
     build: ./nginx
     ports:
       - '80:80'
+    networks:
+      - bookmarks_network
 
 volumes:
   postgres:
+
+networks:
+  bookmarks_network:
+    bridge:

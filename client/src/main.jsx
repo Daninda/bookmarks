@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <ToastContainer
         toastClassName={
-          'mb-4 ml-4 w-[calc(100%-2rem)] sm:w-auto sm:mb-auto rounded bg-surface'
+          'mb-4 ml-4 w-[calc(100%-2rem)] sm:mb-auto rounded bg-surface'
         }
         bodyClassName={'text-base text-textColor'}
         position='bottom-center'

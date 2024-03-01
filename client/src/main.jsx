@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ToastContainer
         toastClassName={'m-4 w-[320px] rounded bg-surface'}
         bodyClassName={'text-base text-textColor'}
-        position='top-left'
+        position='bottom-center'
         autoClose={1500}
         stacked
         hideProgressBar

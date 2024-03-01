@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
       <ToastContainer
-        toastClassName={'rounded bg-surface'}
+        toastClassName={'w-[280px] rounded bg-surface'}
         bodyClassName={'text-base text-textColor'}
         position='top-left'
         autoClose={1500}

@@ -23,7 +23,7 @@ export default function Card({
         });
 
   return (
-    <div className='flex items-center justify-between transition-shadow rounded shadow-md group hover:shadow-lg hover:z-10 bg-surface'>
+    <div className='flex items-center justify-between transition-shadow rounded shadow-md group hover:shadow-lg bg-surface'>
       <a
         className='block w-full p-4 overflow-hidden outline-none cursor-pointer'
         href={

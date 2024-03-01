@@ -29,7 +29,7 @@ export default function EditCard({ bookmark, isShow, setIsShow }) {
   return (
     <div
       className={
-        'absolute top-0	bottom-0 right-0 transition-all left-0 w-screen h-screen z-10 flex items-center justify-center px-4 bg-darkTransition ' +
+        'absolute top-0	bottom-0 right-0 transition-all left-0 w-screen h-screen z-20 flex items-center justify-center px-4 bg-darkTransition ' +
         (isShow ? 'opacity-100 visible' : 'opacity-0 invisible')
       }
       onKeyDown={e => {

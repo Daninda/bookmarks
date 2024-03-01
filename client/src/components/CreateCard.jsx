@@ -37,12 +37,12 @@ export default function CreateCard() {
 
       <div
         className={
-          'fixed overflow-hidden top-0 left-0 z-10 flex items-center justify-center w-full h-full px-4 transition-all bg-darkTransition ' +
+          'fixed overflow-hidden top-0 left-0 z-20 flex items-center justify-center w-full h-full px-4 transition-all bg-darkTransition ' +
           (isShow ? 'opacity-100 visible' : 'opacity-0 invisible')
         }
       >
         <form
-          className='relative z-20 p-8 rounded shadow-md md:w-[500px] bg-background'
+          className='relative p-8 rounded shadow-md md:w-[500px] bg-background'
           ref={editCardRef}
         >
           <label className='mt-6 text-sm text-gray'>Название</label>

@@ -39,7 +39,7 @@ export default function EditCard({ bookmark, isShow, setIsShow }) {
       }}
     >
       <div ref={editCardRef}>
-        <form className='p-8 rounded shadow-md md:w-[500px] bg-background'>
+        <form className='p-8 rounded shadow-md w-full md:w-[500px] bg-background'>
           <label className='mt-6 text-sm text-gray'>Название</label>
           <Input
             autoFocus={true}

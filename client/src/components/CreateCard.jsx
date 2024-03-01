@@ -42,7 +42,7 @@ export default function CreateCard() {
         }
       >
         <form
-          className='relative p-8 rounded shadow-md md:w-[500px] bg-background'
+          className='relative p-8 rounded shadow-md w-full md:w-[500px] bg-background'
           ref={editCardRef}
         >
           <label className='mt-6 text-sm text-gray'>Название</label>

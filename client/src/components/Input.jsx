@@ -11,7 +11,7 @@ export default function Input({
   return (
     <div
       className={
-        'flex items-center w-full h-12 gap-4 px-4 rounded shadow-md bg-surface focus:outline-accent focus:outline-1 ' +
+        'flex items-center w-full h-12 flex-shrink-0 gap-4 px-4 rounded shadow-md bg-surface focus:outline-accent focus:outline-1 ' +
         className
       }
     >

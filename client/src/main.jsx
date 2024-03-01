@@ -9,22 +9,20 @@ import store from './store/store.js';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
-      <div className='m-4'>
-        <ToastContainer
-          bodyClassName={'text-base text-textColor'}
-          toastClassName={'rounded bg-surface'}
-          position='bottom-center'
-          autoClose={1500}
-          stacked
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          pauseOnFocusLoss={false}
-          draggable={false}
-          pauseOnHover={false}
-          transition={Slide}
-        />
-      </div>
+      <ToastContainer
+        toastClassName={'rounded bg-surface'}
+        bodyClassName={'text-base text-textColor'}
+        position='top-left'
+        autoClose={1500}
+        stacked
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        transition={Slide}
+      />
       <App />
     </BrowserRouter>
   </Provider>

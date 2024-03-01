@@ -38,66 +38,67 @@ export default function EditCard({ bookmark, isShow, setIsShow }) {
         }
       }}
     >
-      <div ref={editCardRef}>
-        <form className='p-8 rounded shadow-md w-full md:w-[500px] bg-background'>
-          <label className='mt-6 text-sm text-gray'>Название</label>
-          <Input
-            autoFocus={true}
-            type='text'
-            placeholder='React'
-            className='mt-2 mb-4'
-            value={title}
-            setValue={setTitle}
-          />
-          <label className='mt-6 text-sm text-gray'>Ссылка</label>
-          <Input
-            type='url'
-            placeholder='https://react.dev'
-            className='mt-2 mb-4'
-            value={link}
-            setValue={setLink}
-          />
+      <form
+        className='p-8 rounded shadow-md w-full md:w-[500px] bg-background'
+        ref={editCardRef}
+      >
+        <label className='mt-6 text-sm text-gray'>Название</label>
+        <Input
+          autoFocus={true}
+          type='text'
+          placeholder='React'
+          className='mt-2 mb-4'
+          value={title}
+          setValue={setTitle}
+        />
+        <label className='mt-6 text-sm text-gray'>Ссылка</label>
+        <Input
+          type='url'
+          placeholder='https://react.dev'
+          className='mt-2 mb-4'
+          value={link}
+          setValue={setLink}
+        />
 
-          <label className='mt-6 text-sm text-gray'>Тэги</label>
-          <Input
-            type='text'
-            placeholder='Development, React'
-            className='mt-2 mb-8'
-            value={tagsString}
-            setValue={setTagsString}
-          />
-          <Button
-            className='w-full'
-            onClick={() => {
-              const tags = (tagsString.split(/[ .,;]/) || [])
-                .filter(x => x != '')
-                .map(value => {
-                  return { title: value };
-                });
-              if (title != 0 && link != 0) {
-                dispatch(
-                  update({
-                    bookmark_id: bookmark.bookmark_id,
-                    title,
-                    link,
-                    tags,
-                  })
-                );
-                toast('Успешно обновлено', {
-                  icon: <FiCheckCircle className='text-accent' size={'24px'} />,
-                });
-                setIsShow(false);
-              } else {
-                toast('Заполните поля', {
-                  icon: <FiAlertCircle className='text-accent' size={'24px'} />,
-                });
-              }
-            }}
-          >
-            Подтвердить
-          </Button>
-        </form>
-      </div>
+        <label className='mt-6 text-sm text-gray'>Тэги</label>
+        <Input
+          type='text'
+          placeholder='Development, React'
+          className='mt-2 mb-8'
+          value={tagsString}
+          setValue={setTagsString}
+        />
+        <Button
+          className='w-full'
+          onClick={() => {
+            const tags = (tagsString.split(/[ .,;]/) || [])
+              .filter(x => x != '')
+              .map(value => {
+                return { title: value };
+              });
+            if (title != 0 && link != 0) {
+              dispatch(
+                update({
+                  bookmark_id: bookmark.bookmark_id,
+                  title,
+                  link,
+                  tags,
+                })
+              );
+              toast('Успешно обновлено', {
+                icon: <FiCheckCircle className='text-accent' size={'24px'} />,
+              });
+              setIsShow(false);
+            } else {
+              toast('Заполните поля', {
+                icon: <FiAlertCircle className='text-accent' size={'24px'} />,
+              });
+            }
+          }}
+        >
+          Подтвердить
+        </Button>
+      </form>
       {/* {!isShow ? (
         ''
       ) : (

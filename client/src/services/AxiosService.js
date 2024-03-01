@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const http = axios.create({
   withCredentials: true,
+  baseURL: 'http://localhost:5000',
 });
 
 http.interceptors.request.use(config => {
@@ -27,6 +28,7 @@ http.interceptors.response.use(
         const response = await axios
           .create({
             withCredentials: true,
+            baseURL: 'http://localhost:5000',
           })
           .post('api/auth/refresh');
         localStorage.setItem('accessToken', response.data.accessToken);

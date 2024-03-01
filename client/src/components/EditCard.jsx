@@ -11,7 +11,7 @@ import Input from './Input';
 export default function EditCard({ bookmark, isShow, setIsShow }) {
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
-  const [tagsString, setTagsString] = useState([]);
+  const [tagsString, setTagsString] = useState('');
   const dispatch = useDispatch();
   const editCardRef = useRef(null);
 
@@ -22,7 +22,7 @@ export default function EditCard({ bookmark, isShow, setIsShow }) {
   useEffect(() => {
     setTitle(bookmark.title);
     setLink(bookmark.link);
-    setTagsString(bookmark.tags.map(value => value.title).join(' '));
+    setTagsString(bookmark.tags.map(value => value.title).join(', '));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isShow]);
 
@@ -71,7 +71,7 @@ export default function EditCard({ bookmark, isShow, setIsShow }) {
         <Button
           className='w-full'
           onClick={() => {
-            const tags = (tagsString.split(/[ .,;]/) || [])
+            const tags = (tagsString.split(/[.,;]/) || [])
               .filter(x => x != '')
               .map(value => {
                 return { title: value };

@@ -73,7 +73,7 @@ export default function CreateCard() {
 
           <Button
             onClick={() => {
-              const tags = (tagsString.split(/[ .,;]/) || [])
+              const tags = (tagsString.split(/[.,;]/) || [])
                 .filter(x => x != '')
                 .map(value => {
                   return { title: value };

@@ -25,7 +25,7 @@ export default function CardMenu({ bookmark, handleDelete }) {
       <div
         ref={menuRef}
         className={
-          'absolute z-10 text-sm text-textColor transition-all p-2 flex flex-col -translate-x-2 translate-y-2 rounded shadow-md bg-surface ' +
+          'absolute z-10 text-base text-textColor transition-all p-2 flex flex-col -translate-x-2 translate-y-2 rounded shadow-md bg-surface ' +
           (isShow ? 'opacity-100 visible' : 'opacity-0 invisible')
         }
       >

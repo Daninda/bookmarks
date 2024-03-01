@@ -24,7 +24,7 @@ export default function LoginPage() {
   }
   return (
     <div className='flex justify-center w-screen h-screen pt-[20vh] px-4'>
-      <form className='flex flex-col w-96'>
+      <form className='flex flex-col w-full sm:w-96'>
         <p className='text-xl font-medium text-center transition-colors text-accent'>
           Simple.bookmarks
         </p>

@@ -1,10 +1,9 @@
 version: '3.8'
 
 services:
-  db:
+  postgres:
     image: postgres
     restart: unless-stopped
-    env_file: .env
     environment:
       - POSTGRES_USER=danila
       - POSTGRES_PASSWORD=danila
@@ -16,14 +15,13 @@ services:
 
   backend:
     depends_on:
-      - db
+      - postgres
     build: ./backend
     restart: unless-stopped
-    env_file: ./.env
     expose:
       - 5000
     environment:
-      - DB_HOST=db
+      - DB_HOST=postgres
     stdin_open: true
     tty: true
 

@@ -30,7 +30,7 @@ export default function CardMenu({ bookmark, handleDelete }) {
         }
       >
         <button
-          className='px-3 py-2 text-base transition-colors rounded text-start hover:bg-grayLight'
+          className='px-3 py-2 text-sm transition-colors rounded text-start hover:bg-grayLight'
           onClick={() => {
             setIsShow(false);
             setIsShowEdit(true);
@@ -39,7 +39,7 @@ export default function CardMenu({ bookmark, handleDelete }) {
           Редактировать
         </button>
         <button
-          className='px-3 py-2 text-base transition-colors rounded text-start hover:bg-grayLight'
+          className='px-3 py-2 text-sm transition-colors rounded text-start hover:bg-grayLight'
           onClick={() => {
             setIsShow(false);
             handleDelete();
@@ -48,11 +48,7 @@ export default function CardMenu({ bookmark, handleDelete }) {
           Удалить
         </button>
       </div>
-      <EditCard
-        bookmark={bookmark}
-        isShow={isShowEdit}
-        setIsShow={setIsShowEdit}
-      />
+      <EditCard bookmark={bookmark} isShow={isShowEdit} setIsShow={setIsShowEdit} />
 
       {/* <Link
           onClick={handleEdit}

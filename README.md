@@ -4,6 +4,8 @@
 
 **Fullstack** web application for saving links to necessary resources.
 
+![image](https://github.com/Daninda/bookmarks/assets/126169546/91767e81-8e75-4dd6-ba75-50d0af6f83d4)
+
 ## Languages and tools
 
 - Javascript
